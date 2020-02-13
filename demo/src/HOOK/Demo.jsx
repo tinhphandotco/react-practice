@@ -54,19 +54,13 @@ export default function Hook(props) {
 
 
   const handleCount = useCallback(() => {
-    setCount(
-      prevCount => prevCount + 1
-    );
-  }, []);
+    setCount(count + 1);
+  }, [count]);
 
-  const handleCount2 = useCallback((count2) => () => {
-    setCount2(
-      prevCount => prevCount + 2
-    );
-    // setCount(
-    //   prevCount => prevCount + count2
-    // );
-  }, []);
+  const handleCount2 = useCallback(() => {
+    setCount2(count2 + 1);
+    handleCount();
+  }, [count2]);
 
   useEffect(() => {
     prevCount.current = count;
@@ -94,7 +88,7 @@ export default function Hook(props) {
 
       <br/>
       <button onClick={handleCount}>Count 1</button>
-      <button onClick={handleCount2(count2)}>Count 2</button>
+      <button onClick={handleCount2}>Count 2</button>
 
       <ComponentDemo
         onClickCount2={handleCount2}
